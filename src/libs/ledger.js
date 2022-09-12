@@ -11,7 +11,7 @@ function number2Buffer(num) {
   const buffer = []
   const neg = (num < 0)
   num = Math.abs(num)
-  while(num) {
+  while (num) {
     buffer[buffer.length] = num & 0xff
     num = num >> 8
   }
@@ -28,7 +28,7 @@ function number2Buffer(num) {
 function hex2Buffer(hexString) {
   const buffer = []
   for (let i = 0; i < hexString.length; i += 2) {
-    buffer[buffer.length] = (parseInt(hexString[i], 16) << 4) | parseInt(hexString[i+1], 16)
+    buffer[buffer.length] = (parseInt(hexString[i], 16) << 4) | parseInt(hexString[i + 1], 16)
   }
   return Buffer.from(buffer)
 }
@@ -46,7 +46,7 @@ export default class Ledger {
     const alvey = new btcApp(await transportU2f.create())
     // ensure in Alvey App
     const pubkeyRes = await alvey.getWalletPublicKey(Ledger.defaultPath)
-    if (pubkeyRes.bitcoinAddress[0] !== 'Q') {
+    if (pubkeyRes.bitcoinAddress[0] !== 'A') {
       throw 'Not Alvey App'
     }
     return new Ledger(alvey)
@@ -64,7 +64,7 @@ export default class Ledger {
     const paths = []
     const selectUtxo = alveyJsLib.utils.selectTxs(utxoList, amount, fee)
     const rawTxCache = {}
-    for(let i = 0; i < selectUtxo.length; i++) {
+    for (let i = 0; i < selectUtxo.length; i++) {
       const item = selectUtxo[i]
       if (!rawTxCache[item.hash]) {
         rawTxCache[item.hash] = await rawTxFetchFunc(item.hash)
@@ -99,7 +99,7 @@ export default class Ledger {
     const paths = []
     const selectUtxo = alveyJsLib.utils.selectTxs(utxoList, amount, fee)
     const rawTxCache = {}
-    for(let i = 0; i < selectUtxo.length; i++) {
+    for (let i = 0; i < selectUtxo.length; i++) {
       const item = selectUtxo[i]
       if (!rawTxCache[item.hash]) {
         rawTxCache[item.hash] = await rawTxFetchFunc(item.hash)
@@ -113,7 +113,7 @@ export default class Ledger {
     }
 
     const outputs = new alveyJsLib.TransactionBuilder(keyPair.network)
-    const contract =  alveyJsLib.script.compile([
+    const contract = alveyJsLib.script.compile([
       OPS.OP_4,
       number2Buffer(gasLimit),
       number2Buffer(gasPrice),

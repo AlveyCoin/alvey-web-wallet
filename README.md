@@ -1,2 +1,2 @@
 # alvey-web-wallet
-A web wallet for ALV.
+A web wallet for ALVEY.

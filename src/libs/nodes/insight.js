@@ -7,7 +7,7 @@ switch (config.getNetwork()) {
         domain = 'https://testnet.alvey.org'
         break
     case 'mainnet':
-        domain = 'https://alveyscan.com'
+        domain = 'https://explorer.alvey.org'
         break
 }
 const apiPrefix = domain + '/insight-api'
@@ -25,7 +25,7 @@ export default {
         return await _get(`/addr/${address}`)
     },
 
-    async getQrc20(address) {
+    async getArc20(address) {
         return await _get(`/erc20/balances?balanceAddress=${address}`)
     },
 
